@@ -4,7 +4,7 @@ const { Server } = require('socket.io');
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: '*' } }); // Autorise GitHub Pages
+const io = new Server(server, { cors: { origin: '*' } });
 
 const MAX_ACTIVE = 4;
 let activeUsers = new Set();
@@ -15,6 +15,7 @@ io.on('connection', (socket) => {
 
   socket.on('join', (username) => {
     const user = { id: socket.id, username, timestamp: Date.now() };
+    socket.username = username; // Stocke username pour messages
     if (activeUsers.size < MAX_ACTIVE) {
       activeUsers.add(user.id);
       socket.join('chat');
