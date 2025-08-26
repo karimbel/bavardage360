@@ -16,6 +16,18 @@ var slideHeight = player.slideHeight;
 window.Script1 = function()
 {
   const player = GetPlayer();
+const canvases = document.querySelectorAll('canvas'); // Sélectionne tous les canvas de Storyline
+canvases.forEach((canvas) => {
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  if (ctx) {
+    console.log('Canvas optimisé pour readback');
+  }
+});
+}
+
+window.Script2 = function()
+{
+  const player = GetPlayer();
 if (!window.io) {
   const script = document.createElement('script');
   script.src = 'https://cdn.socket.io/4.7.5/socket.io.min.js';
@@ -67,7 +79,7 @@ function initializeSocket() {
 }
 }
 
-window.Script2 = function()
+window.Script3 = function()
 {
   if (window.socket) {
   window.socket.disconnect();
@@ -76,12 +88,12 @@ window.Script2 = function()
 }
 }
 
-window.Script3 = function()
+window.Script4 = function()
 {
   window.envoyerMessage();
 }
 
-window.Script4 = function()
+window.Script5 = function()
 {
   if (window.socket) {
   window.socket.disconnect();
