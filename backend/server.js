@@ -3,7 +3,7 @@ const http = require('http');
 const { Server } = require('socket.io');
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: '*' } });
+const io = new Server(server, { cors: { origin: 'https://karimbel.github.io', methods: ['GET', 'POST'] } });
 const MAX_ACTIVE = 4;
 let activeUsers = new Set();
 let waitingQueue = [];
@@ -12,9 +12,18 @@ io.on('connection', (socket) => {
   console.log('Utilisateur connecté:', socket.id);
   
   socket.on('join', (username) => {
+    // Vérifier si le pseudo existe déjà
+    const existingUser = [...activeUsers, ...waitingQueue.map(u => u.id)]
+      .find(id => io.sockets.sockets.get(id)?.username === username);
+    if (existingUser) {
+      socket.emit('error', { message: `Le pseudo ${username} est déjà utilisé.` });
+      return;
+    }
+
     const user = { id: socket.id, username, timestamp: Date.now() };
     socket.username = username; // Stocke username pour messages
     console.log(`Utilisateur ${username} connecté avec ID: ${socket.id}`);
+    
     if (activeUsers.size < MAX_ACTIVE) {
       activeUsers.add(user.id);
       socket.join('chat');
