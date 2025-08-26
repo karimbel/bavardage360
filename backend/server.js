@@ -14,6 +14,7 @@ io.on('connection', (socket) => {
   socket.on('join', (username) => {
     const user = { id: socket.id, username, timestamp: Date.now() };
     socket.username = username; // Stocke username pour messages
+    console.log(`Utilisateur ${username} connecté avec ID: ${socket.id}`);
     if (activeUsers.size < MAX_ACTIVE) {
       activeUsers.add(user.id);
       socket.join('chat');
@@ -51,6 +52,7 @@ io.on('connection', (socket) => {
 
   socket.on('sendMessage', (msg) => {
     if (activeUsers.has(socket.id)) {
+      console.log(`Message publié par ${socket.username || 'inconnu'} (${socket.id}): ${msg}`);
       io.to('chat').emit('newMessage', { username: socket.username, message: msg });
     }
   });

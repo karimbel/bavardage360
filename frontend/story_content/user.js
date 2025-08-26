@@ -82,11 +82,10 @@ function initializeSocket() {
 window.Script3 = function()
 {
   const player = GetPlayer();
-// Afficher le message via la variable Storyline
+const utilisateurPseudo = player.GetVar('utilisateurPseudo'); // Variable Storyline pour le pseudo
 player.SetVar("message", "Connexion au serveur, cela peut prendre quelques secondes...");
-
-// Connexion Socket.IO (laisser le code existant s'exécuter)
 const socket = io('https://bavardage360.onrender.com');
+socket.emit('join', utilisateurPseudo); // Envoyer le pseudo au serveur
 }
 
 window.Script4 = function()
@@ -109,6 +108,17 @@ window.Script6 = function()
   window.socket.disconnect();
   player.SetVar('utilisateurSalon', false);
   player.SetVar('utilisateurPage', 'Deconnexion');
+}
+}
+
+window.Script7 = function()
+{
+  const player = GetPlayer();
+const messageInput = player.GetVar('messageSalon'); // Variable Storyline pour le champ texte
+if (messageInput) {
+  player.SetVar("message", "Envoi du message, veuillez patienter...");
+  const socket = io('https://bavardage360.onrender.com');
+  socket.emit('sendMessage', messageInput);
 }
 }
 
