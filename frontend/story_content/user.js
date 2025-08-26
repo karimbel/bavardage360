@@ -27,7 +27,8 @@ if (!window.io) {
   initializeSocket();
 }
 function initializeSocket() {
-  const socket = io('http://localhost:3000'); // Remplacer par URL Render plus tard
+  //const socket = io('http://localhost:3000'); // adresse local si module est utilisé sur server node local
+  const socket = io('https://bavardage360.onrender.com'); // adresse distante si module est utilisé avec service externe
   window.socket = socket;
   socket.on('connect', () => {
     const pseudo = player.GetVar('utilisateurPseudo') || 'Utilisateur' + Math.floor(Math.random() * 100);
