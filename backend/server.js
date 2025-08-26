@@ -1,18 +1,16 @@
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
-
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: '*' } });
-
 const MAX_ACTIVE = 4;
 let activeUsers = new Set();
 let waitingQueue = [];
 
 io.on('connection', (socket) => {
   console.log('Utilisateur connecté:', socket.id);
-
+  
   socket.on('join', (username) => {
     const user = { id: socket.id, username, timestamp: Date.now() };
     socket.username = username; // Stocke username pour messages
@@ -34,6 +32,7 @@ io.on('connection', (socket) => {
   }
 
   socket.on('disconnect', () => {
+    console.log(`Utilisateur déconnecté: ${socket.id} (${socket.username || 'inconnu'})`);
     if (activeUsers.has(socket.id)) {
       activeUsers.delete(socket.id);
       if (waitingQueue.length > 0) {
