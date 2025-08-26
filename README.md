@@ -13,20 +13,19 @@ Testez l'application en ligne :
 - **Interface intuitive** : Développée avec Articulate Storyline 360 pour une expérience utilisateur fluide.
 
 ## Instructions d'utilisation
-1. Accédez à l'application via l'[URL de test](#url-de-test).
-2. **Slide 1 (Accueil)** :
+1. **Slide 1 (Accueil)** :
    - Entrez un pseudo unique dans le champ prévu.
    - Cliquez sur "Rejoindre" pour entrer dans le salon ou la file d'attente.
    - Une notification "Connexion au serveur, cela peut prendre quelques secondes..." s'affiche pendant 5 secondes.
-3. **Slide 2 (Salon)** :
+2. **Slide 2 (Salon)** :
    - Entrez un message dans le champ texte et cliquez sur "Envoyer".
    - Une notification "Envoi du message, veuillez patienter..." s'affiche pendant 5 secondes.
    - Les messages des autres utilisateurs s'affichent en temps réel.
-4. **Slide 3 (File d'attente)** :
+3. **Slide 3 (File d'attente)** :
    - Si le salon est plein (4 utilisateurs), vous êtes redirigé vers la file d'attente.
    - Affichez votre position dans la liste d'attente.
    - Rejoignez automatiquement le salon dès qu'une place se libère.
-5. **Slide 4 (Déconnexion)** :
+4. **Slide 4 (Déconnexion)** :
    - Cliquez sur le bouton de déconnexion pour quitter le salon.
    - Une notification "Déconnexion en cours..." peut s'afficher pendant 5 secondes.
 
