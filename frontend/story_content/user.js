@@ -15,14 +15,10 @@ var slideWidth = player.slideWidth;
 var slideHeight = player.slideHeight;
 window.Script1 = function()
 {
-  const player = GetPlayer();
-const canvases = document.querySelectorAll('canvas'); // Sélectionne tous les canvas de Storyline
-canvases.forEach((canvas) => {
-  const ctx = canvas.getContext('2d', { willReadFrequently: true });
-  if (ctx) {
-    console.log('Canvas optimisé pour readback');
-  }
+  document.querySelectorAll('canvas').forEach(canvas => {
+  canvas.getContext('2d', { willReadFrequently: true });
 });
+
 }
 
 window.Script2 = function()
@@ -90,19 +86,41 @@ socket.emit('join', utilisateurPseudo); // Envoyer le pseudo au serveur
 
 window.Script4 = function()
 {
-  if (window.socket) {
-  window.socket.disconnect();
-  player.SetVar('utilisateurSalon', false);
-  player.SetVar('utilisateurPage', 'Deconnexion');
-}
+  document.querySelectorAll('.slide-object[aria-hidden="true"]').forEach(element => {
+  if (element.querySelector(':focus')) {
+    element.removeAttribute('aria-hidden');
+  } else {
+    element.setAttribute('inert', '');
+  }
+});
 }
 
 window.Script5 = function()
 {
-  window.envoyerMessage();
+  if (window.socket) {
+  window.socket.disconnect();
+  player.SetVar('utilisateurSalon', false);
+  player.SetVar('utilisateurPage', 'Deconnexion');
+}
 }
 
 window.Script6 = function()
+{
+  document.querySelectorAll('.slide-object[aria-hidden="true"]').forEach(element => {
+  if (element.querySelector(':focus')) {
+    element.removeAttribute('aria-hidden');
+  } else {
+    element.setAttribute('inert', '');
+  }
+});
+}
+
+window.Script7 = function()
+{
+  window.envoyerMessage();
+}
+
+window.Script8 = function()
 {
   if (window.socket) {
   window.socket.disconnect();
@@ -111,7 +129,7 @@ window.Script6 = function()
 }
 }
 
-window.Script7 = function()
+window.Script9 = function()
 {
   const player = GetPlayer();
 const messageInput = player.GetVar('messageSalon'); // Variable Storyline pour le champ texte
